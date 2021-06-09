@@ -6,8 +6,19 @@ export default function Form(props) {
   
   
 
-  const [name, setName] = useState("");
-  const [interviewer, setInterviewer] = useState(null);
+  const [name, setName] = useState(props.name || "");
+  const [interviewer, setInterviewer] = useState(props.value || null);
+
+  const reset = () => {
+    setName("");
+    setInterviewer(null);
+  };
+
+  const cancel = () => {
+    reset();
+    props.onCancel();
+
+  };
   
   return (
     <div>
@@ -18,8 +29,9 @@ export default function Form(props) {
               className="appointment__create-input text--semi-bold"
               name="name"
               type="text"
-              value={props.name}
+              value={name}
               placeholder="Enter Student Name"
+              onChange={(event) => setName(event.target.value)}
               /*
           This must be a controlled component
         */
@@ -28,13 +40,13 @@ export default function Form(props) {
           <InterviewerList
             interviewers={props.interviewers}
             value={interviewer}
-            onChange={setInterviewer}
+            onChange={event => setInterviewer(event)}
           />
         </section>
         <section className="appointment__card-right">
           <section className="appointment__actions">
-            <Button danger onCancel={props.onCancel}>Cancel</Button>
-            <Button confirm onSave={props.onSave}>Save</Button>
+            <Button danger onClick={cancel}>Cancel</Button>
+            <Button confirm onSubmit={event => event.preventDefault()} onClick={event => props.onSave(name, interviewer)}>Save</Button>
           </section>
         </section>
       </main>
