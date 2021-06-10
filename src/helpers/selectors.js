@@ -1,4 +1,4 @@
-export function getAppointmentsForDay(selector, day) {
+export default function getAppointmentsForDay(selector, day) {
   const dayObj = selector.days.filter(item => (day === item.name));
   if(dayObj[0]) {
     const appointmentArray = dayObj[0].appointments;
