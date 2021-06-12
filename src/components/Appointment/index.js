@@ -5,6 +5,8 @@ import Empty from "./Empty";
 import Form from "./Form";
 import Status from "./Status";
 import Confirm from "./Confirm";
+import Error from "./Error";
+
 
 import "components/Appointment/styles.scss";
 import useVisualMode from "hooks/useVisualMode";
@@ -16,6 +18,9 @@ export default function Appointment(props) {
   const SAVING = "SAVING";
   const DELETE = 'DELETE';
   const CONFIRM = 'CONFIRM';
+  const EDIT = 'EDIT';
+  const ERROR_SAVE = 'ERROR_SAVE';
+  const ERROR_DELETE = "ERROR_DELETE";
 
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
@@ -30,7 +35,8 @@ export default function Appointment(props) {
     transition(SAVING);
 
     props.bookInterview(props.id, interview)
-      .then(() => transition(SHOW));
+      .then(() => transition(SHOW))
+      .catch(() => transition(ERROR_SAVE));
   }
 
   function deleteApp() {
@@ -38,7 +44,13 @@ export default function Appointment(props) {
       transition(DELETE, true);
       props.cancelInterview(props.id)
         .then(() => transition(EMPTY))
+        .catch(() => transition(ERROR_DELETE));
     } else transition(CONFIRM);
+  }
+
+  function editApp() {
+    transition(EDIT);
+
   }
   
 
@@ -52,12 +64,22 @@ export default function Appointment(props) {
           student={props.interview.student}
           interviewer={props.interview.interviewer}
           onDelete={deleteApp}
+          onEdit={editApp}
         />
       )}
       {mode === CREATE && <Form interviewers={props.interviewers} onSave={save} onCancel={() => {back()}}/>}
       {mode === SAVING && <Status message="Saving..."/>}
       {mode === DELETE && <Status message="Deleting..."/>}
       {mode === CONFIRM && <Confirm message='Are you sure you would like to delete this appointment?' onConfirm={deleteApp} onCancel={back}/>}
+      {mode === EDIT && <Form name={props.interview.student} value={props.interview.interviewer.id} interviewers={props.interviewers} onSave={save} onCancel={() => {back()}}/>}
+      {mode === ERROR_SAVE && <Error message="Something went wrong. Save could not be completed." onClose={back}/>}
+      {mode === ERROR_DELETE && <Error message="Something went wrong. Delete could not be completed." onClose={back}/>}
     </article>
   );
 }
+
+// name:String
+// interviewers:Array
+// interviewer:Number
+// onSave:Function
+// onCancel:Function
