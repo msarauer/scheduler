@@ -17,15 +17,14 @@ export function getInterview(state, interview) {
   return {...interview, interviewer: interviewObj};
 };
 
-
-// state object --------
-// day: "Monday",
-//     days: [],
-//     appointments: {},
-//     interviewers: {},
-
-// interview
-// {
-//   "student": "Lydia Miller-Jones",
-//   "interviewer": 1
-// }
+export function getInterviewsForDay(selector, day) {
+  const dayObj = selector.days.filter(item => (day === item.name));
+  if(dayObj[0]) {
+    const interviewerArray = dayObj[0].interviewers;
+    const result = interviewerArray.map((item) => {
+      return selector.interviewers[item];
+    })
+    return result;
+  }
+  return [];
+};
