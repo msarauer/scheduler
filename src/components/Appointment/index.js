@@ -36,7 +36,7 @@ export default function Appointment(props) {
 
     props.bookInterview(props.id, interview)
       .then(() => transition(SHOW))
-      .catch(() => transition(ERROR_SAVE));
+      .catch((error) => transition(ERROR_SAVE, true));
   }
 
   function deleteApp() {
@@ -44,16 +44,9 @@ export default function Appointment(props) {
       transition(DELETE, true);
       props.cancelInterview(props.id)
         .then(() => transition(EMPTY))
-        .catch(() => transition(ERROR_DELETE));
+        .catch((error) => transition(ERROR_DELETE, true));
     } else transition(CONFIRM);
   }
-
-  function editApp() {
-    transition(EDIT);
-
-  }
-  
-
 
   return (
     <article className="appointment">
@@ -64,7 +57,7 @@ export default function Appointment(props) {
           student={props.interview.student}
           interviewer={props.interview.interviewer}
           onDelete={deleteApp}
-          onEdit={editApp}
+          onEdit={() => transition(EDIT)}
         />
       )}
       {mode === CREATE && <Form interviewers={props.interviewers} onSave={save} onCancel={() => {back()}}/>}
