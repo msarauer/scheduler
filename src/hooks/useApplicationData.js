@@ -40,15 +40,16 @@ export default function useApplicationData() {
 
     return axios.delete(`/api/appointments/${id}`) 
     .then((res) => {
-      setState({
-        ...state,
-        appointments
-      })
+      setState(prev => ({
+        ...prev,
+        appointments,
+        days: updateSpots(id, 1)
+      }))
       return res;
     })
   }
 
-  function bookInterview(id, interview) {
+  function bookInterview(id, interview, mode) {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -57,16 +58,37 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
+
+    const updateDays = (mode === 'CREATE') ? ({days: updateSpots(id, -1)}) : {};
     
     return axios.put(`/api/appointments/${id}`, {interview: interview})
       .then((res) => {
         setState({
           ...state,
-          appointments
+          appointments,
+          ...updateDays
         })
         return res;
       })
   }
+  const updateSpots = function(id, sign) {
+
+    const day = Math.ceil(id / 5);
+  
+    const dayObj = state.days.find(item => item.id === day);
+  
+    const modifiedObj = {
+      ...dayObj,
+      spots: (dayObj.spots + sign)
+    };
+    
+    const daysArray = [...state.days];
+  
+    daysArray[day - 1] = modifiedObj;
+  
+    return daysArray;
+  
+  };
 
   return { cancelInterview, bookInterview, setDay, state }
 }

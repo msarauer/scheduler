@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import classNames from 'classnames';
 
 import "components/InterviewerListItem.scss";
 
 const InterviewerListItem = (props) => {
-  const { key, name, avatar, selected, setInterviewer } = props;
+  const { id, name, avatar, selected, setInterviewer } = props;
   
   let InterviewerClass = classNames("interviewers__item", {
     "interviewers__item--selected": selected
@@ -13,7 +13,7 @@ const InterviewerListItem = (props) => {
 
 
   return (
-    <li key={key} className={InterviewerClass} onClick={setInterviewer}>
+    <li key={id} className={InterviewerClass} onClick={setInterviewer}>
       <img
         className="interviewers__item-image"
         src={avatar}
