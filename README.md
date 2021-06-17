@@ -23,7 +23,10 @@ Using the latest tools and techniques, we built and tested a React application t
 ## Screenshots
 
 ![Showing a few appointments on Monday](https://github.com/msarauer/scheduler/blob/master/docs/appointments_page.png?raw=true)
+Showing a few appointments on Monday
+
 ![Showing the book new appointment form](https://github.com/msarauer/scheduler/blob/master/docs/add_appointment.png?raw=true)
+Showing the book new appointment form
 
 ## Setup
 
