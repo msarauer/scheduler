@@ -11,6 +11,7 @@ import "components/Appointment/styles.scss";
 import useVisualMode from "hooks/useVisualMode";
 
 export default function Appointment(props) {
+  //variables for possible modes
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
@@ -21,32 +22,35 @@ export default function Appointment(props) {
   const ERROR_SAVE = "ERROR_SAVE";
   const ERROR_DELETE = "ERROR_DELETE";
 
+  //destructured object from UseVisual mode. If there is an interview, set initial mode to show, otherwise empty
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
-
+  //function that takes in the student name and chosen interviewer
   function save(name, interviewer) {
     const interview = {
       student: name,
       interviewer,
     };
-
+    //shows the saving screen
     transition(SAVING);
-
+    //tries to book an interview. If successful, shows the booked interview. If not, shows a save error.
     props
       .bookInterview(props.id, interview, mode)
       .then(() => transition(SHOW))
       .catch((error) => transition(ERROR_SAVE, true));
   }
-
+  //delete appointment function
   function deleteApp() {
+    //if the mode is currently the confirm screen, show replace with the delete mode
     if (mode === CONFIRM) {
       transition(DELETE, true);
+      //try to cancel the interview. If successful, show EMPTY, otherweise show ERROR_DELETE
       props
         .cancelInterview(props.id)
         .then(() => transition(EMPTY))
         .catch((error) => transition(ERROR_DELETE, true));
-    } else transition(CONFIRM);
+    } else transition(CONFIRM); //transition to the confirm mode
   }
 
   return (
@@ -105,9 +109,3 @@ export default function Appointment(props) {
     </article>
   );
 }
-
-// name:String
-// interviewers:Array
-// interviewer:Number
-// onSave:Function
-// onCancel:Function

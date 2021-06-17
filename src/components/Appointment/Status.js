@@ -1,9 +1,8 @@
 import React from "react";
 
 export default function Status(props) {
-  
   const { message } = props;
-  
+
   return (
     <div>
       <main className="appointment__card appointment__card--status">
@@ -17,7 +16,3 @@ export default function Status(props) {
     </div>
   );
 }
-
-
-// props --------------
-// message:String eg. "Deleting"

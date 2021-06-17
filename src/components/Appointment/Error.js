@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function Error(props) {
-  
   const { message, onClose } = props;
 
   return (
@@ -21,7 +20,3 @@ export default function Error(props) {
     </div>
   );
 }
-
-// props ---------------------
-// message:String eg. "Could not delete appointment."
-// onClose:Function to be called when the user clicks the Close button

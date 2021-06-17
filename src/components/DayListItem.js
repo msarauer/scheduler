@@ -3,11 +3,12 @@ import classNames from "classnames";
 import "components/DayListItem.scss";
 
 export default function DayListItem(props) {
+  //assign a class to the day depending if it is selected or full
   let dayClass = classNames("day-list__item", {
     "day-list__item--selected": props.selected,
     "day-list__item--full": props.spots === 0,
   });
-
+  //format the spots text depending on remaining spots
   const formatSpots = (spots) => {
     switch (spots) {
       case 0:

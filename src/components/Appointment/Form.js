@@ -7,21 +7,25 @@ export default function Form(props) {
   const [interviewer, setInterviewer] = useState(props.value || null);
   const [error, setError] = useState("");
 
+  //reset the name and interviewer to blank
   const reset = () => {
     setName("");
     setInterviewer(null);
   };
 
+  //cancel an appointment function
   const cancel = () => {
     reset();
     props.onCancel();
   };
 
+  //ensures a name is entered and then saves the appointment
   function validate() {
     if (name === "") {
       setError("Student name cannot be blank");
       return;
     }
+
     setError("");
     props.onSave(name, interviewer);
   }
@@ -66,16 +70,3 @@ export default function Form(props) {
     </div>
   );
 }
-
-// As part of our Edit story, the Form component should take the following props:
-
-// name:String
-// interviewers:Array
-// interviewer:Number
-// onSave:Function
-// onCancel:Function
-// As part of our Create story, the Form component should take the following props:
-
-// interviewers:Array
-// onSave:Function
-// onCancel:Function

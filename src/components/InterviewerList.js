@@ -5,7 +5,7 @@ import "components/InterviewerList.scss";
 
 function InterviewerList(props) {
   const { interviewers, value, onChange } = props;
-
+  //creates a list of interviewers
   const InterviewersList = interviewers.map((item) => {
     return (
       <InterviewerListItem
@@ -25,16 +25,9 @@ function InterviewerList(props) {
     </section>
   );
 }
-
+//ensures the prop type is an array
 InterviewerList.propTypes = {
   interviewers: PropTypes.array.isRequired,
 };
 
 export default InterviewerList;
-
-// // props --------------------
-// interviewers:array - an array of objects containing the information of each interviewer
-// interviewer:number - the id of an interviewer
-// setInterviewer:function - a function that accepts an interviewer id
-
-// id, name, avatar, selected, setInterviewer
