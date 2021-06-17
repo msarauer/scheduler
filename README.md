@@ -20,6 +20,11 @@ Using the latest tools and techniques, we built and tested a React application t
 - When the user presses the close button of the error they are returned to the Form or Show view (skipping Status and Confirm).
 - The application makes API requests to load and persist data. We do not lose data after a browser refresh.
 
+## Screenshots
+
+![Showing a few appointments on Monday](https://github.com/msarauer/scheduler/blob/master/docs/appointments_page.png?raw=true)
+![Showing the book new appointment form](https://github.com/msarauer/scheduler/blob/master/docs/add_appointment.png?raw=true)
+
 ## Setup
 
 Install dependencies with `npm install`.
