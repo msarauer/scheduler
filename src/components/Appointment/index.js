@@ -45,7 +45,7 @@ export default function Appointment(props) {
     //if the mode is currently the confirm screen, show replace with the delete mode
     if (mode === CONFIRM) {
       transition(DELETE, true);
-      //try to cancel the interview. If successful, show EMPTY, otherweise show ERROR_DELETE
+      //try to cancel the interview. If successful, show EMPTY, otherwise show ERROR_DELETE
       props
         .cancelInterview(props.id)
         .then(() => transition(EMPTY))
