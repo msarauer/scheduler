@@ -19,10 +19,13 @@ export default function Form(props) {
     props.onCancel();
   };
 
-  //ensures a name is entered and then saves the appointment
+  //ensures a name and interviewer is entered and then saves the appointment
   function validate() {
     if (name === "") {
       setError("Student name cannot be blank");
+      return;
+    } else if (!interviewer) {
+      setError("You must select an interviewer");
       return;
     }
 

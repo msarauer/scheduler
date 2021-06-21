@@ -6,14 +6,16 @@ export default function useVisualMode(initialMode) {
 
   //function to transition to the next mode, if replace is true, the prev mode is replaced
   const transition = function (newMode, replace = false) {
-    setMode(newMode);
+    setMode(newMode); //set mode to new mode
+    //if replace is set to true
     if (replace) {
-      setHistory((prev) => {
-        prev.pop();
-        return [...prev, newMode];
+      //remove the previous state from history within the setHistory function
+      setHistory((history) => {
+        history.pop();
+        return [...history, newMode];
       });
     } else {
-      setHistory((prev) => [...prev, newMode]);
+      setHistory((history) => [...history, newMode]);
     }
   };
   //sets mode to the previous
